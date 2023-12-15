@@ -45,8 +45,10 @@ app.post("/api/messages", async (req: RequestWithBody, res: Response) => {
     content = "Error";
   }
 
+  const fix = content.trim();
+
   try {
-    const newMessage = await DB.sq.models.Message.create({ content });
+    const newMessage = await DB.sq.models.Message.create({ content: fix });
     res.status(201).json({
       response: "Success",
       message: newMessage,
