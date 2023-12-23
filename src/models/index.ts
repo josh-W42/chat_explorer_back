@@ -1,14 +1,20 @@
-import { ModelStatic } from "sequelize";
+import {
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+  ModelStatic,
+} from "sequelize";
 import { CreateMessageModel } from "./message";
 
 export const enum ModelNames {
   Message = "Message",
 }
 
-type ModelCreationInterface = {
-  [key in ModelNames]: () => [ModelNames, ModelStatic<any>];
-};
+export type ModelWrapper<M extends Model<any, any>> = Model<
+  InferAttributes<M>,
+  InferCreationAttributes<M>
+>;
 
-export const ModelCreationFunctions: ModelCreationInterface = {
+export const ModelCreationFunctions = {
   Message: CreateMessageModel,
 };

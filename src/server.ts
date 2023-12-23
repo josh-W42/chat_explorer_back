@@ -4,6 +4,8 @@ import cors from "cors";
 import { RequestWithBody } from "./v1";
 import dotenv from "dotenv";
 import DB from "./database/db";
+import { ModelWrapper } from "./models";
+import { Message } from "./models/message";
 
 dotenv.config();
 
@@ -48,7 +50,10 @@ app.post("/api/messages", async (req: RequestWithBody, res: Response) => {
   const fix = content.trim();
 
   try {
-    const newMessage = await DB.sq.models.Message.create({ content: fix });
+    const newMessage: ModelWrapper<Message> = await DB.sq.models.Message.create(
+      { content: fix }
+    );
+
     res.status(201).json({
       response: "Success",
       message: newMessage,

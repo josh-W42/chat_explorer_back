@@ -9,7 +9,7 @@ import {
 import DB from "../../database/db";
 import { ModelNames } from "..";
 
-interface Message
+export interface Message
   extends Model<InferAttributes<Message>, InferCreationAttributes<Message>> {
   id: CreationOptional<string>;
   content: string;
